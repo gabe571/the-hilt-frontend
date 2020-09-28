@@ -1,5 +1,6 @@
 import React from 'react';
 import Guild from './Guild'
+import Form from './Form'
 
 const GuildsContainer = (props) => {
 
