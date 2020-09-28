@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-
+import GuildsContainer from './Components/GuildsContainer'
 
 class App extends React.Component {
   state = {
@@ -12,11 +12,12 @@ componentDidMount(){
   .then(res => res.json())
   .then(guilds => {this.setState({ guilds })})
 }
+
   render() {
     console.log(this.state.guilds)
     return (
       <div>
-        <h1>GUILDS!</h1>
+        <GuildsContainer guilds={this.state.guilds} />
       </div>
     );
   }
