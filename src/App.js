@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import CreateGuild from './Components/CreateGuild';
 import GuildsContainer from './Components/GuildsContainer'
 
 class App extends React.Component {
@@ -18,6 +19,7 @@ componentDidMount(){
     return (
       <div>
         <GuildsContainer guilds={this.state.guilds} />
+        <CreateGuild />
       </div>
     );
   }
