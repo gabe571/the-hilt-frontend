@@ -7,8 +7,6 @@ state = {
     faction: '',
     img_url: '',
     description: ''
-
-
 }
 
 handleForm = (e) => {
@@ -56,10 +54,11 @@ handleImageChange = (event) => {
 
     render() {
         return (
+           
            <form onSubmit={this.handleForm}>
                <div>
                    <label>Guild Name</label>
-                   <input type='text' value={this.state.name} onChange={this.handleNameChange}/>
+                   <input type='text'  value={this.state.name} onChange={this.handleNameChange}/>
                </div>
                <div>
                <label>Realm</label>
