@@ -3,6 +3,7 @@ import './App.css';
 import Form from './Components/Form';
 import GuildsContainer from './Components/GuildsContainer'
 
+
 class App extends React.Component {
   state = {
     guilds: [],
@@ -23,12 +24,26 @@ handleSubmit = (name, realm, faction, description, img_url) => {
  .then(res => res.json())
  .then(console.log) 
 }
+
+deleteHandler = (guild) => {
+  console.log(guild)
+fetch(`http://localhost:3000/guilds/${guild.id}`,{
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
+    }
+  })
+  .then(res => res.json())
+  .then(json => console.log(json))
+}
   render() {
     console.log(this.state.guilds)
     return (
       <div>
-        <GuildsContainer guilds={this.state.guilds} />
-        <Form guilds={this.handleSubmit}/>
+        <GuildsContainer guilds={this.state.guilds} delete={this.deleteHandler} />
+        <Form guilds={this.handleSubmit} />
+       {/* <Guild guilds={this.state.guilds} delete={this.deleteHandler}/> */}
       </div>
     );
   }
