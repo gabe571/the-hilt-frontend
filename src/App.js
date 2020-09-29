@@ -59,8 +59,10 @@ fetch(`http://localhost:3000/guilds/${guild.id}`,{
     console.log(this.state.guilds)
     return (
       <div>
-        <GuildsContainer guilds={this.state.guilds} delete={this.deleteHandler}  change={this.handleChangeFor} edit={this.editHandler} />
+        <GuildsContainer guilds={this.state.guilds} delete={this.deleteHandler} />
         <Form guilds={this.handleSubmit} />
+        <Guild edit={this.editHandler} />
+
       </div>
     );
   }
