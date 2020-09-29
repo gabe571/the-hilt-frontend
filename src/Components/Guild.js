@@ -16,6 +16,7 @@ return <ul className="cards__item">
                 <div className="faction">Faction: {faction}</div>
         <div className="card_text">Description:{description}</div>
         <button onClick={() => this.props.delete(this.props.guild)}>Delete</button>
+        <button onClick={() => this.props.edit(this.props.guild)}>Edit</button>
             </div>
         </div>
 

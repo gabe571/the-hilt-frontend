@@ -25,6 +25,16 @@ handleSubmit = (name, realm, faction, description, img_url) => {
  .then(console.log) 
 }
 
+editHandler = (guild) => {
+  const Data = {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify({ guild })
+  };
+  fetch(`http://localhost:3000/guilds/${guild.id}`, Data)
+  .then(res => res.json())
+  .then(console.log) 
+ }
 deleteHandler = (guild) => {
   console.log(guild)
 fetch(`http://localhost:3000/guilds/${guild.id}`,{
@@ -41,7 +51,7 @@ fetch(`http://localhost:3000/guilds/${guild.id}`,{
     console.log(this.state.guilds)
     return (
       <div>
-        <GuildsContainer guilds={this.state.guilds} delete={this.deleteHandler} />
+        <GuildsContainer guilds={this.state.guilds} delete={this.deleteHandler} edit={this.editHandler} />
         <Form guilds={this.handleSubmit} />
        {/* <Guild guilds={this.state.guilds} delete={this.deleteHandler}/> */}
       </div>
