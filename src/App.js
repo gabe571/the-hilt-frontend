@@ -18,7 +18,8 @@ class App extends React.Component {
 componentDidMount(){
   fetch('http://localhost:3000/guilds')
   .then(res => res.json())
-  .then(guilds => {this.setState({ guilds })})
+  .then(guilds => 
+    {this.setState({ guilds })})
 }
 handleSubmit = (name, realm, faction, description, img_url) => {
  const requestedData = {
@@ -32,6 +33,7 @@ handleSubmit = (name, realm, faction, description, img_url) => {
 }
 
 editHandler = (e, guild) => {
+  debugger
   console.log(guild)
   e.preventDefault()
   const Data = {

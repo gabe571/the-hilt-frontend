@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { Component } from 'react'
 import GuildsContainer from './GuildsContainer'
 
 class Guild extends React.Component {
  
     state = {
         guild: [],
+        id: this.props.guild.id,
         name: this.props.guild.name,
         realm: this.props.guild.realm,
         faction: this.props.guild.faction,
@@ -47,7 +48,7 @@ handleShowForm = () => {
 }
 
 addGuild = () => {
-    return {name: this.state.name, realm: this.state.realm, faction: this.state.faction, img_url: this.state.img_url, description: this.state.description }
+    return {id: this.state.id, name: this.state.name, realm: this.state.realm, faction: this.state.faction, img_url: this.state.img_url, description: this.state.description }
 }
 render() {
     const { name, realm, faction, img_url, description } = this.props.guild
