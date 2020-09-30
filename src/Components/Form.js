@@ -16,10 +16,6 @@ handleForm = (e) => {
     const Faction = this.state.faction
     const Descripton = this.state.description
     const img_url = this.state.img_url
-   console.log(Name)
-   console.log(Realm)
-   console.log(Faction)
-   console.log(Descripton)
    this.props.guilds(Name, Realm, Faction, Descripton, img_url)
 }
 

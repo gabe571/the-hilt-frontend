@@ -2,7 +2,9 @@ import React from 'react';
 import './App.css';
 import Guild from './Components/Guild'
 import Form from './Components/Form';
+import Login from './Components/Login'
 import GuildsContainer from './Components/GuildsContainer'
+import {Route, Switch, Link, NavLink} from 'react-router-dom'
 
 
 
@@ -27,6 +29,11 @@ componentDidMount(){
   .then(guilds => 
     {this.setState({ guilds })})
 }
+
+renderGuilds = () => <GuildsContainer  guilds={this.state.guilds} delete={this.deleteHandler} edit={this.editHandler}/>
+
+renderForm = () =>  <Form guilds={this.handleSubmit} />
+
 handleSubmit = (name, realm, faction, description, img_url) => {
  const requestedData = {name, realm, faction, description, img_url};
  fetch('http://localhost:3000/guilds', {
@@ -40,7 +47,6 @@ handleSubmit = (name, realm, faction, description, img_url) => {
 }
 
 editHandler = (e, guild) => {
-  debugger
   console.log(guild)
   e.preventDefault()
   const Data = {
@@ -67,14 +73,30 @@ fetch(`http://localhost:3000/guilds/${guild.id}`,{
 
 }
   render() {
-    console.log(this.state.guilds)
     return (
       <div>
-       
-        <GuildsContainer guilds={this.state.guilds} delete={this.deleteHandler} edit={this.editHandler} />
-        <Form guilds={this.handleSubmit} />
-       {/* <Guild edit={this.editHandler}/> */}
-      </div>
+      <header>
+        <h3>THE HILT</h3>
+       <ul>
+         <li>
+          <NavLink to='/form'>Form</NavLink>
+         </li>
+         <li>
+          <NavLink to='/guildscontainer'>Active Guilds</NavLink>
+         </li>
+         <li>
+          <NavLink to='/login'>Login</NavLink>
+         </li>
+       </ul>
+      </header>
+
+        <Switch>
+       <Route path='/login' component={Login}/>
+        <Route path='/form' render={this.renderForm}/>
+        <Route path='/guildscontainer' render={this.renderGuilds} />
+        </Switch>
+
+        </div>
     );
   }
 }
