@@ -5,9 +5,15 @@ import Form from './Components/Form';
 import GuildsContainer from './Components/GuildsContainer'
 
 
+
 class App extends React.Component {
   state = {
     guilds: [],
+    realm: '',
+    faction: '',
+    img_url: '',
+    description: ''
+
   };
   componentDidMount(){
   fetch('http://localhost:3000/users')
@@ -22,14 +28,15 @@ componentDidMount(){
     {this.setState({ guilds })})
 }
 handleSubmit = (name, realm, faction, description, img_url) => {
- const requestedData = {
+ const requestedData = {name, realm, faction, description, img_url};
+ fetch('http://localhost:3000/guilds', {
    method: 'POST',
-   headers: { 'Content-Type': 'application/json'},
-   body: JSON.stringify({name: name, realm: realm, faction: faction, description: description, img_url: img_url})
- };
- fetch('http://localhost:3000/guilds', requestedData)
- .then(res => res.json())
- .then(console.log) 
+   headers: { 
+     'Content-Type': 'application/json',
+   },
+   body: JSON.stringify(requestedData),
+ })
+.then(res => res.json())
 }
 
 editHandler = (e, guild) => {
@@ -57,6 +64,7 @@ fetch(`http://localhost:3000/guilds/${guild.id}`,{
   })
   .then(res => res.json())
   .then(json => console.log(json))
+
 }
   render() {
     console.log(this.state.guilds)
