@@ -1,22 +1,23 @@
 import React from 'react';
 import './App.css';
-import Guild from './Components/Guild'
 import Form from './Components/Form';
 import Login from './Components/Login'
 import GuildsContainer from './Components/GuildsContainer'
-import {Route, Switch, Link, NavLink} from 'react-router-dom'
+import {Route, Switch, Link, NavLink, withRouter} from 'react-router-dom'
 
 
 
 class App extends React.Component {
-  state = {
-    guilds: [],
-    realm: '',
-    faction: '',
+  state={
+    user:{
+      id:0,
+      name:''
+    },
+    guilds:[],
+    realm:'',
+    faction:'',
     img_url: '',
-    description: '',
-    id: 0,
-    name: "",
+    description:''
   }
 
 componentDidMount(){
@@ -31,6 +32,7 @@ renderGuilds = () => <GuildsContainer  guilds={this.state.guilds} delete={this.d
 renderForm = () =>  <Form guilds={this.handleSubmit} />
 
 handleLogin = (e, userInfo) =>{
+  console.log(userInfo)
   e.preventDefault()
 
   fetch('http://localhost:3000/login',{
@@ -43,8 +45,8 @@ handleLogin = (e, userInfo) =>{
  .then(res => res.json())
  .then(json => {
    if(!json.error){
-     this.setState({user:{id:json.id, username:json.username}, allGuild:json.Guilds}, () => {
-       this.props.history.push('/guilds')
+     this.setState({user:{id:json.id, user:json.name}, allGuild:json.GuildsContainer}, () => {
+       this.props.history.push('/guildscontainer')
      })
    }else {
      alert(json.error)
@@ -113,7 +115,7 @@ fetch(`http://localhost:3000/guilds/${guild.id}`,{
       </header>
 
         <Switch>
-       <Route path='/login' component={Login}/>
+       <Route path='/login' render={this.renderLoginPage}/>
         <Route path='/form' render={this.renderForm}/>
         <Route path='/guildscontainer' render={this.renderGuilds} />
         </Switch>
@@ -123,4 +125,4 @@ fetch(`http://localhost:3000/guilds/${guild.id}`,{
   }
 }
 
-export default App;
+export default withRouter(App);

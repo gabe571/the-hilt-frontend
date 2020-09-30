@@ -8,19 +8,20 @@ class Login extends React.Component {
     }
 
     handleChange = (e) => {
+        // debugger
         e.preventDefault()
-        let {name, value} = e.target
+        // let {name, password} = e.target
+        // console.log(name, password)
         this.setState({
-            [name]: value
+          [e.target.name]: e.target.value 
         })
     }
     render(){
-        console.log(this.state)
         return (
             <div className="Login">
                 <form onSubmit={(e) => this.props.handleLogin(e, this.state)}>
                  <label>UserName</label>
-                 <input type="username" value={this.state.username} onChange={this.handleChange}></input>
+                 <input type="username" name="name" value={this.state.username} onChange={this.handleChange}></input>
                  <br/>
                  <label>Password</label>
                  <input type="password" name="password" value={this.state.password} onChange={this.handleChange}></input>
