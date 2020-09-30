@@ -14,13 +14,9 @@ class App extends React.Component {
     realm: '',
     faction: '',
     img_url: '',
-    description: ''
-
-  };
-  componentDidMount(){
-  fetch('http://localhost:3000/users')
-  .then(res => res.json())
-  .then(users => {this.setState({ users })})
+    description: '',
+    id: 0,
+    name: "",
   }
 
 componentDidMount(){
@@ -33,6 +29,31 @@ componentDidMount(){
 renderGuilds = () => <GuildsContainer  guilds={this.state.guilds} delete={this.deleteHandler} edit={this.editHandler}/>
 
 renderForm = () =>  <Form guilds={this.handleSubmit} />
+
+handleLogin = (e, userInfo) =>{
+  e.preventDefault()
+
+  fetch('http://localhost:3000/login',{
+   method:"POST",
+   headers:{
+     'Content-Type':'application/json'
+   },
+   body:JSON.stringify(userInfo)
+ })
+ .then(res => res.json())
+ .then(json => {
+   if(!json.error){
+     this.setState({user:{id:json.id, username:json.username}, allGuild:json.Guilds}, () => {
+       this.props.history.push('/guilds')
+     })
+   }else {
+     alert(json.error)
+   }
+ })
+ .catch(err => console.log(err))
+}
+
+renderLoginPage = () => <Login handleLogin={this.handleLogin} />
 
 handleSubmit = (name, realm, faction, description, img_url) => {
  const requestedData = {name, realm, faction, description, img_url};
@@ -73,6 +94,7 @@ fetch(`http://localhost:3000/guilds/${guild.id}`,{
 
 }
   render() {
+    console.log(this.state)
     return (
       <div>
       <header>
