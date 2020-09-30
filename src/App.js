@@ -55,7 +55,9 @@ handleLogin = (e, userInfo) =>{
  .catch(err => console.log(err))
 }
 
-renderLoginPage = () => <Login handleLogin={this.handleLogin} />
+renderLoginPage = () => <Login handleLoginOrSignup={this.handleLogin} />
+
+renderSignUpPage = () =>  <Login handleLoginOrSignup={this.handleSignup}/>
 
 handleSubmit = (name, realm, faction, description, img_url) => {
  const requestedData = {name, realm, faction, description, img_url};
@@ -69,6 +71,18 @@ handleSubmit = (name, realm, faction, description, img_url) => {
 .then(res => res.json())
 }
 
+handleSignup = (e,userInfo) => {
+  e.preventDefault()
+   fetch('http://localhost:3000/users',{
+     method:"POST",
+     headers:{
+       'Content-Type':'application/json'
+     },
+     body:JSON.stringify(userInfo)
+   })
+   .then(res => res.json())
+   .then(console.log)
+ }
 editHandler = (e, guild) => {
   console.log(guild)
   e.preventDefault()
@@ -111,11 +125,15 @@ fetch(`http://localhost:3000/guilds/${guild.id}`,{
          <li>
           <NavLink to='/login'>Login</NavLink>
          </li>
+         <li>
+          <NavLink to='/signup'>Sign Up!</NavLink>
+         </li>
        </ul>
       </header>
 
         <Switch>
        <Route path='/login' render={this.renderLoginPage}/>
+       <Route path='/signup' render={this.renderSignUpPage}/>
         <Route path='/form' render={this.renderForm}/>
         <Route path='/guildscontainer' render={this.renderGuilds} />
         </Switch>
