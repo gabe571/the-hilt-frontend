@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import Guild from './Components/Guild'
 import Form from './Components/Form';
 import GuildsContainer from './Components/GuildsContainer'
 
@@ -8,6 +9,11 @@ class App extends React.Component {
   state = {
     guilds: [],
   };
+  componentDidMount(){
+  fetch('http://localhost:3000/users')
+  .then(res => res.json())
+  .then(users => {this.setState({ users })})
+  }
 
 componentDidMount(){
   fetch('http://localhost:3000/guilds')
@@ -25,7 +31,9 @@ handleSubmit = (name, realm, faction, description, img_url) => {
  .then(console.log) 
 }
 
-editHandler = (guild) => {
+editHandler = (e, guild) => {
+  console.log(guild)
+  e.preventDefault()
   const Data = {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json'},
@@ -35,6 +43,7 @@ editHandler = (guild) => {
   .then(res => res.json())
   .then(console.log) 
  }
+ 
 deleteHandler = (guild) => {
   console.log(guild)
 fetch(`http://localhost:3000/guilds/${guild.id}`,{
@@ -51,9 +60,10 @@ fetch(`http://localhost:3000/guilds/${guild.id}`,{
     console.log(this.state.guilds)
     return (
       <div>
+       
         <GuildsContainer guilds={this.state.guilds} delete={this.deleteHandler} edit={this.editHandler} />
         <Form guilds={this.handleSubmit} />
-       {/* <Guild guilds={this.state.guilds} delete={this.deleteHandler}/> */}
+       {/* <Guild edit={this.editHandler}/> */}
       </div>
     );
   }
