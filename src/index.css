@@ -4,14 +4,8 @@
   box-sizing: border-box;
 }
 
-.active{
-  color: red;
-}
-li{
-  list-style: none;
-}
 html {
-  background-color: white;
+  background-color: darkgray;
 }
 
 body {
@@ -43,7 +37,6 @@ body {
 input[type='checkbox']{
   text-align: center;
 }
-
 img {
   height: auto;
   max-width: 100%;
@@ -71,11 +64,10 @@ img {
 .cards__item {
   display: flex;
   padding: 1rem;
-  width: 25%;
+  width: 35%;
 }
 
 .card {
-  border-style: solid;
   background-color: white;
   border-radius: 0.25rem;
   box-shadow: 0 20px 40px -14px rgba(0,0,0,0.25);
