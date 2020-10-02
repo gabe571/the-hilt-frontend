@@ -93,17 +93,46 @@ renderLoginPage = () => <Login handleLoginOrSignup={this.handleLogin} />
 renderSignUpPage = () =>  <Login handleLoginOrSignup={this.handleSignup}/>
 
 handleSubmit = (name, realm, faction, description, img_url) => {
- const requestedData = {name, realm, faction, description, img_url};
- fetch('http://localhost:3000/guilds', {
-   method: 'POST',
-   headers: { 
-     'Content-Type': 'application/json',
-   },
-   body: JSON.stringify(requestedData),
- })
-.then(res => res.json())
-}
+  fetch('http://localhost:3000/guilds',{
+    method: "POST",
+    headers: {
+      "Content-TYpe" : "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({ guild: {name: name, realm: realm, faction: faction, description: description, img_url: img_url},
+  }),
+})
+.then((res) => res.json())
+.then((json => {
+  console.log(json);
+  this.setState({
+    guilds: [
+      ...this.state.guilds,
+      {
+        id: json.id,
+        name: name,
+        realm: realm,
+        faction: faction,
+        description: description,
+        img_url: img_url,
+      },
+    ],
+  });
+}),
 
+
+// handleSubmit = (name, realm, faction, description, img_url) => {
+//  const requestedData = {name, realm, faction, description, img_url};
+//  fetch('http://localhost:3000/guilds', {
+//    method: 'POST',
+//    headers: { 
+//      'Content-Type': 'application/json',
+//    },
+//    body: JSON.stringify(requestedData),
+//  })
+// .then(res => res.json())
+// }
+)}
 handleSignup = (e,userInfo) => {
   e.preventDefault()
    fetch('http://localhost:3000/users',{
@@ -150,7 +179,8 @@ fetch(`http://localhost:3000/guilds/${guild.id}`,{
         <h3>THE HILT</h3>
        <ul>
          <li>
-          <NavLink to='/form'>Form</NavLink>
+          <NavLink to='/form'>Create Your Own!
+          </NavLink>
          </li>
          <li>
           <NavLink to='/appform'>Apply Here!</NavLink>
