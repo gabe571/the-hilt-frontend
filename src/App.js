@@ -1,7 +1,9 @@
 import React from 'react';
 import './App.css';
 import Form from './Components/Form';
+import AppForm from './Components/AppForm'
 import Login from './Components/Login'
+import ApplicationsContainer from './Components/ApplicationsContainer'
 import GuildsContainer from './Components/GuildsContainer'
 import {Route, Switch, Link, NavLink, withRouter} from 'react-router-dom'
 
@@ -13,6 +15,11 @@ class App extends React.Component {
       id:0,
       name:''
     },
+    application:{
+      user_id:0,
+      guild_id:0,
+      content:''
+    },
     guilds:[],
     realm:'',
     faction:'',
@@ -20,17 +27,43 @@ class App extends React.Component {
     description:''
   }
 
-componentDidMount(){
-  fetch('http://localhost:3000/guilds')
-  .then(res => res.json())
-  .then(guilds => 
-    {this.setState({ guilds })})
-}
+  componentDidMount(){
+    fetch('http://localhost:3000/guilds')
+    .then(res => res.json())
+    .then(guilds => 
+      {this.setState({ guilds })})
+  }
+  
+  fetchApplications(){
+    fetch('http://localhost:3000/applications')
+    .then(res => res.json())
+    .then(applications => 
+      {this.setState({ applications })})
+  }
+  
+
 
 renderGuilds = () => <GuildsContainer  guilds={this.state.guilds} delete={this.deleteHandler} edit={this.editHandler}/>
 
+renderApplications = () => <ApplicationsContainer applications={this.state.applications}/>
+
 renderForm = () =>  <Form guilds={this.handleSubmit} />
 
+renderAppForm = () =>  <AppForm applications={this.handleAppSubmit} />
+
+handleAppSubmit = (content, guild_id, user_id) => {
+  const Data = {content, guild_id, user_id};
+  fetch('http://localhost:3000/applications', {
+    method: 'POST',
+    headers: { 
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(Data),
+  })
+ .then(res => res.json())
+ .then(console.log())
+ }
+ 
 handleLogin = (e, userInfo) =>{
   console.log(userInfo)
   e.preventDefault()
@@ -120,6 +153,9 @@ fetch(`http://localhost:3000/guilds/${guild.id}`,{
           <NavLink to='/form'>Form</NavLink>
          </li>
          <li>
+          <NavLink to='/appform'>Apply Here!</NavLink>
+         </li>
+         <li>
           <NavLink to='/guildscontainer'>Active Guilds</NavLink>
          </li>
          <li>
@@ -134,8 +170,10 @@ fetch(`http://localhost:3000/guilds/${guild.id}`,{
         <Switch>
        <Route path='/login' render={this.renderLoginPage}/>
        <Route path='/signup' render={this.renderSignUpPage}/>
+       <Route path='/appform' render={this.renderAppForm}/>
         <Route path='/form' render={this.renderForm}/>
         <Route path='/guildscontainer' render={this.renderGuilds} />
+        <Route path='/applicationscontainer' render={this.renderApplications} />
         </Switch>
 
         </div>

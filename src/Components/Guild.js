@@ -64,6 +64,7 @@ render() {
                                 <div className="card_text">Description:{description}</div>
                                 <button onClick={() => this.props.delete(this.props.guild)}>Delete</button>
                                 <button onClick={() => this.handleShowForm()}>Edit</button>
+                                <button onClick={() => this.handleFormApply()}>Apply</button>
                             </div>
                         </div>
                     </div>
