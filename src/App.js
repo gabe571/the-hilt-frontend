@@ -51,8 +51,8 @@ renderForm = () =>  <Form guilds={this.handleSubmit} />
 
 renderAppForm = () =>  <AppForm applications={this.handleAppSubmit} />
 
-handleAppSubmit = (content, guild_id, user_id) => {
-  const Data = {content, guild_id, user_id};
+handleAppSubmit = (content,user_id, guild_id) => {
+  const Data = {content, user_id, guild_id};
   fetch('http://localhost:3000/applications', {
     method: 'POST',
     headers: { 
@@ -61,7 +61,7 @@ handleAppSubmit = (content, guild_id, user_id) => {
     body: JSON.stringify(Data),
   })
  .then(res => res.json())
- .then(console.log())
+ .then(console.log)
  }
  
 handleLogin = (e, userInfo) =>{
@@ -174,6 +174,7 @@ fetch(`http://localhost:3000/guilds/${guild.id}`,{
         <Route path='/form' render={this.renderForm}/>
         <Route path='/guildscontainer' render={this.renderGuilds} />
         <Route path='/applicationscontainer' render={this.renderApplications} />
+        <Route path='/applications' applications={this.applications}/>
         </Switch>
 
         </div>

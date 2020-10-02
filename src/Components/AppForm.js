@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 class AppForm extends React.Component {
 state = {
     content: '',
-    user_id:'',
-    guild_id:''
+    user_id:0,
+    guild_id:0
 }
 
 handleFormApply = (e) => {

@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import ApplicationsContainer from './ApplicationsContainer'
+import Applications from './Applications'
 
 class Guild extends React.Component {
  
