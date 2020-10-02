@@ -157,7 +157,7 @@ editHandler = (e, guild) => {
   .then(res => res.json())
   .then(console.log) 
  }
- 
+ //trying to get this to pes render
 deleteHandler = (guild) => {
   console.log(guild)
 fetch(`http://localhost:3000/guilds/${guild.id}`,{
@@ -167,10 +167,16 @@ fetch(`http://localhost:3000/guilds/${guild.id}`,{
       Accept: 'application/json'
     }
   })
-  .then(res => res.json())
-  .then(json => console.log(json))
+  .then((res) => res.json())
+  .then((json) => {
+    console.log(json)
+    let guilds = this.state.guilds.filter((guilds) => guilds );
+    (this.setState({
+    guilds: guilds,
+  })
+  )}
+  )}
 
-}
   render() {
     console.log(this.state)
     return (

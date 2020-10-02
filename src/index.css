@@ -5,15 +5,14 @@
 }
 
 html {
-  background-color: darkgray;
+  background-color: white;
 }
 
 body {
   color: black;
   font-family: 'Roboto','Helvetica Neue', Helvetica, Arial, sans-serif;
   font-style: normal;
-  font-weight: 400;
-  letter-spacing: 0;
+  font-weight: 400; letter-spacing: 0;
   padding: 1rem;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
